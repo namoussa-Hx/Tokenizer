@@ -1,0 +1,21 @@
+{
+  "network": "Ethereum Sepolia",
+  "chainId": 11155111,
+  "tokenName": "42NajibToken",
+  "tokenSymbol": "NJT",
+  "decimals": 18,
+  "totalSupply": "1000000",
+  "deployer": "0xd05473d6e765C1b7824786eAa4388Dd8eb2d492C",
+  "contractAddress": "0xFf04B981E6857CD8B336203caF13b4cF63cd6703",
+  "deploymentTransactionHash": "0x6a92889500b94ac9729f83ccad958dbe9c392b0f725d4ea9d6c1816632fbc63",
+  "explorerAddressUrl": "https://sepolia.etherscan.io/address/0xFf04B981E6857CD8B336203caF13b4cF63cd6703",
+  "explorerTransactionUrl": "https://sepolia.etherscan.io/tx/0x6a92889500b94ac9729f83ccad958dbe9c392b0f725d4ea9d6c1816632fbc63",
+  "verified": true,
+  "deployedAt": "2026-11-17T09:50:12Z",
+  "testTransfer": {
+    "amount": "100",
+    "recipient": "0x168d41368d532B082D5c44F4274A1d444B860e89",
+    "transactionHash": "0xffbb91554c131e7c5e418b33306015e45f8224b7aa286f902043bc2f6801fadb",
+    "status": "success"
+  }
+}

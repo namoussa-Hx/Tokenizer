@@ -1,0 +1,18 @@
+{
+  "name": "tokenizer-42-sepolia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "42 Tokenizer project - ERC-20 on Ethereum Sepolia",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:sepolia": "hardhat run deployment/deploy.js --network sepolia",
+    "check:balances": "hardhat run scripts/check-balances.js --network sepolia"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@openzeppelin/contracts": "^5.1.0",
+    "dotenv": "^16.4.5",
+    "hardhat": "^2.28.0"
+  }
+}
