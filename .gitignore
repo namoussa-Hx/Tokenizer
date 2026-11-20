@@ -9,3 +9,9 @@ typechain-types/
 !.env.example
 
 .DS_Store
+
+node_modules/
+artifacts/
+cache/
+.env
+deployment/deployment-info.json
