@@ -1,7 +1,7 @@
 # Architecture
 
 1. The test wallet's private key is stored securely in `.env`.
-2. Hardhat compiles Solidity, runs tests, and signs deployment transactions.
+2. Hardhat compiles Solidity and signs deployment transactions.
 3. The Sepolia RPC endpoint relays JSON-RPC requests to Ethereum Sepolia.
 4. Ethereum Sepolia executes and stores the Token42 contract state.
 5. Sepolia Etherscan displays the public contract and transaction history.

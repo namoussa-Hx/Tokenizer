@@ -9,8 +9,8 @@
 Compile and test:
 
 ```bash
-npm run compile
-npm test
+npx hardhat run scripts/transfer.js --network sepolia
+npx hardhat run scripts/check-balances.js --network sepolia
 ```
 
 Deploy:
