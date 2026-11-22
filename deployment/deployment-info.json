@@ -6,10 +6,10 @@
   "decimals": 18,
   "totalSupply": "1000000.0",
   "deployer": "0xd05473d6e765C1b7824786eAa4388Dd8eb2d492C",
-  "contractAddress": "0xB4A4e44d41A21275aF368f8355362026C4397D2a",
-  "transactionHash": "0xbf7a99733aa9b37e3795dc8ceb8b6aca666b63e0aade9b0acd67fdafb8c94460",
-  "blockNumber": 12176689,
-  "explorerAddressUrl": "https://sepolia.etherscan.io/address/0xB4A4e44d41A21275aF368f8355362026C4397D2a",
-  "explorerTransactionUrl": "https://sepolia.etherscan.io/tx/0xbf7a99733aa9b37e3795dc8ceb8b6aca666b63e0aade9b0acd67fdafb8c94460",
-  "deployedAt": "2026-11-20T17:48:02.035Z"
+  "contractAddress": "0xE09B28377d82dE09c52dED04B5FB331D87252D72",
+  "transactionHash": "0xf9f18812846612feb90d872cfe317e6598f3a436b8f6e3cd6bb32b356807cf02",
+  "blockNumber": 12188877,
+  "explorerAddressUrl": "https://sepolia.etherscan.io/address/0xE09B28377d82dE09c52dED04B5FB331D87252D72",
+  "explorerTransactionUrl": "https://sepolia.etherscan.io/tx/0xf9f18812846612feb90d872cfe317e6598f3a436b8f6e3cd6bb32b356807cf02",
+  "deployedAt": "2026-11-22T12:54:25.785Z"
 }

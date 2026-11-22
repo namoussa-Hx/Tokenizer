@@ -3,25 +3,21 @@ const { ethers, network } = require("hardhat");
 const fs = require("fs");
 const path = require("path");
 
-async function readDeployment(fileName) {
+async function readDeployment(fileName, addressField = "contractAddress") {
   const filePath = path.join(__dirname, "../deployment", fileName);
 
   if (!fs.existsSync(filePath)) {
-    throw new Error(`${fileName} not found. Deploy the contract first.`);
+    throw new Error(`${fileName} not found.`);
   }
 
-  const deployment = JSON.parse(
-    fs.readFileSync(filePath, "utf8")
-  );
+  const deployment = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  const address = deployment[addressField];
 
-  if (
-    !deployment.contractAddress ||
-    !ethers.isAddress(deployment.contractAddress)
-  ) {
-    throw new Error(`Invalid contract address in ${fileName}.`);
+  if (!address || !ethers.isAddress(address)) {
+    throw new Error(`Invalid ${addressField} in ${fileName}.`);
   }
 
-  return deployment.contractAddress;
+  return address;
 }
 
 async function main() {
@@ -37,7 +33,7 @@ async function main() {
 
   // Read contract addresses dynamically
   const TOKEN_ADDRESS = await readDeployment("deployment-info.json");
-  const MULTISIG_ADDRESS = await readDeployment("multisig-deployment-info.json");
+  const MULTISIG_ADDRESS = await readDeployment("multisig-deployment.json", "address");
 
   // Get first signer (Owner 1)
   const [owner1] = await ethers.getSigners();
