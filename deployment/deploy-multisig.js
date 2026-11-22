@@ -13,61 +13,73 @@ const REQUIRED_CONFIRMATIONS = 2;
 
 async function main() {
   if (network.name !== "sepolia") {
-    throw new Error("Wrong network. Use --network sepolia.");
-  }
-
-  const chain = await ethers.provider.getNetwork();
-
-  if (chain.chainId !== 11155111n) {
-    throw new Error("Wrong chain ID. Expected Ethereum Sepolia.");
+    throw new Error(`Wrong network: ${network.name}. Use --network sepolia`);
   }
 
   const [deployer] = await ethers.getSigners();
 
-  console.log("Network: Ethereum Sepolia");
+  console.log("Network:", network.name);
   console.log("Deployer:", deployer.address);
-  console.log("Owners:", OWNERS);
-  console.log("Required confirmations:", REQUIRED_CONFIRMATIONS);
+  console.log("Deploying MultiSigWallet...");
 
-  const Factory = await ethers.getContractFactory("MultiSigWallet");
-  const multisig = await Factory.deploy(
+  const MultiSigWallet = await ethers.getContractFactory("MultiSigWallet");
+
+  const multisig = await MultiSigWallet.deploy(
     OWNERS,
     REQUIRED_CONFIRMATIONS
   );
 
-  await multisig.waitForDeployment();
+  const deploymentTx = multisig.deploymentTransaction();
 
-  const address = await multisig.getAddress();
-  const tx = multisig.deploymentTransaction();
+  if (!deploymentTx) {
+    throw new Error("Deployment transaction not found");
+  }
 
-  const record = {
-    network: "Ethereum Sepolia",
-    chainId: 11155111,
-    contractName: "MultiSigWallet",
-    contractAddress: address,
+  console.log("Transaction hash:", deploymentTx.hash);
+
+  const receipt = await deploymentTx.wait(2);
+
+  if (!receipt || receipt.status !== 1) {
+    throw new Error("MultiSigWallet deployment transaction failed");
+  }
+
+  const multisigAddress = await multisig.getAddress();
+  const deployedCode = await ethers.provider.getCode(multisigAddress);
+
+  if (deployedCode === "0x") {
+    throw new Error("MultiSigWallet bytecode not found on Sepolia");
+  }
+
+  const deploymentInfo = {
+    network: network.name,
+    chainId: Number((await ethers.provider.getNetwork()).chainId),
+    address: multisigAddress,
+    deployer: deployer.address,
     owners: OWNERS,
     requiredConfirmations: REQUIRED_CONFIRMATIONS,
-    deployer: deployer.address,
-    transactionHash: tx ? tx.hash : null,
-    explorerUrl: `https://sepolia.etherscan.io/address/${address}`,
+    transactionHash: receipt.hash,
+    blockNumber: receipt.blockNumber,
     deployedAt: new Date().toISOString()
   };
 
-  const output = path.join(
-    __dirname,
-    "multisig-deployment-info.json"
+  const deploymentDir = path.join(__dirname, "..", "deployment");
+  const outputPath = path.join(deploymentDir, "multisig-deployment.json");
+
+  fs.mkdirSync(deploymentDir, { recursive: true });
+
+  fs.writeFileSync(
+    outputPath,
+    JSON.stringify(deploymentInfo, null, 2) + "\n"
   );
 
-  fs.writeFileSync(output, JSON.stringify(record, null, 2) + "\n");
-
-  console.log("\nMultisig deployment successful!");
-  console.log("Contract:", address);
-  console.log("Transaction:", record.transactionHash);
-  console.log("Explorer:", record.explorerUrl);
-  console.log("Saved:", output);
+  console.log("\nMultiSigWallet deployed successfully!");
+  console.log("Address:", multisigAddress);
+  console.log("Owners:", OWNERS);
+  console.log("Required confirmations:", REQUIRED_CONFIRMATIONS);
+  console.log("Saved to:", outputPath);
 }
 
 main().catch((error) => {
-  console.error(error);
+  console.error("Deployment failed:", error);
   process.exitCode = 1;
 });
