@@ -19,6 +19,17 @@ The project also includes an additional 2-of-3 MultiSig wallet implementation as
 
 The complete token supply is minted to the deployer during contract deployment. No additional tokens can be minted after deployment.
 
+## Design Choices
+
+We chose the ERC-20 standard because it is widely adopted,
+well-documented, and supported by a mature Ethereum ecosystem.
+It is also straightforward to develop, deploy, and test using
+Hardhat and OpenZeppelin.
+
+We chose Ethereum Sepolia because it provides a safe test
+environment for deploying and testing smart contracts without
+using real money. It also allows us to test our token using
+Ethereum-compatible tools such as MetaMask and Etherscan.
 ## Technologies
 
 - Solidity 0.8.24
